@@ -1,0 +1,17 @@
+%h1 Listing users
+
+%table
+  %tr
+    %th Name
+    %th Avatar
+    %th
+    %th
+
+  - @users.each do |user|
+    %tr
+      %td= user.name
+      %td= user.avatar
+      %td= link_to 'Show', user
+      %td= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
