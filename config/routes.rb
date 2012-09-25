@@ -1,13 +1,14 @@
 Forum::Application.routes.draw do
-  resources :posts
 
-  resources :topics
-
-  resources :boards
+  resources :boards do
+    resources :topics do
+      resources :posts
+    end
+  end
 
   devise_for :users, path_names: {sign_in: 'login', sign_out: 'logout'}
 
   resources :users, only: [:index, :show]
 
-  root to: 'users#index'
+  root to: 'boards#index'
 end
