@@ -1,0 +1,44 @@
+@import 'mixins';
+
+.user {
+  padding:10px;
+  margin-top: 10px;
+  overflow: hidden;
+  @include rounded(4px);
+  color:#999;
+  font-size:11px;
+  
+  background:-o-linear-gradient(top,#f8f8f8,#f5f5f5);
+  background:-moz-linear-gradient(top,#f8f8f8,#f5f5f5);
+  background:-webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#f5f5f5));
+
+  border-bottom:1px solid #d9d9d9;
+  border-top:1px solid #e4e4e4;
+  border-left:1px solid #dfdfdf;
+  border-right:1px solid #dfdfdf;
+  
+  box-shadow:0 1px 2px #f7f7f7;
+  
+  &:hover {
+    background:-o-linear-gradient(top,#f8f8f8,#f2f2f2);
+    background:-moz-linear-gradient(top,#f8f8f8,#f2f2f2);
+    background:-webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#f2f2f2))
+  }
+
+  .avatar {
+    a {
+      display: inline-block;
+      overflow: hidden;
+      width: 100px;
+      height: 100px;
+      @include border-radius(5px);
+      img {
+        display: block;
+      }
+    }
+  }
+
+  .info {
+    margin-left: 10px; 
+  }
+}
