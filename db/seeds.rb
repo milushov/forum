@@ -4,6 +4,15 @@ count_of_users = 10
 avatars = 1..9
 pass = '123456'
 
+
+User.create! do |user|
+  user.email = 'roma@milushov.ru'
+  user.password = pass
+  user.password_confirmation = pass
+  user.name = cur_user_name = 'roma'
+  user.avatar = 'http://cs411618.userapi.com/u788157/a_976d41fa.jpg'
+end
+
 1.upto(count_of_users) do |i|
   cur_user_name = ''
 

@@ -39,6 +39,9 @@
               %li= link_to 'Sign up', :new_user_registration
               %li= link_to 'Login', :new_user_session
 
+- if auth_page? # because auth form will be in centre of page
+  =yield
+- else
   .container#app
     .row
       .span12
@@ -46,10 +49,7 @@
           %p.notice= notice
         - if alert
           %p.alert= alert
+    .row
+      .span12
+        =yield
 
-    - if auth_page? # because auth form will be in centre of page
-      =yield
-    - else
-      .row
-        .span12
-          =yield
