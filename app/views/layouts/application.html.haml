@@ -1,0 +1,55 @@
+!!!
+%html
+%head
+  %title Simple forum
+  /[if lt IE 9]
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+
+  =stylesheet_link_tag    "application", media: "all"
+  =javascript_include_tag "application"
+  =csrf_meta_tags
+
+%body
+  .navbar.navbar-inverse.navbar-fixed-top
+    .navbar-inner
+      .container
+        %a.brand{href: '/'} Simple forum
+
+        .nav-collapse
+          %ul.nav
+            %li
+              %a.nav{href: '/users'} All users
+
+        %ul.nav.pull-right
+          - if user_signed_in?
+            %li.divider-vertical
+            %li
+              .btn-group
+                %a.btn.btn-primary{href: '/'}
+                  =current_user.name
+                %a.btn.btn-primary.dropdown-toggle{data: {toggle: 'dropdown'}}
+                  %span.caret
+
+                %ul.dropdown-menu
+                  %li= link_to 'Edit profile', :edit_user_registration
+                  %li.divider
+                  %li= link_to 'Logout', :destroy_user_session, method: :delete
+          - else
+            %li.divider-vertical
+              %li= link_to 'Sign up', :new_user_registration
+              %li= link_to 'Login', :new_user_session
+
+  .container#app
+    .row
+      .span12
+        - if notice
+          %p.notice= notice
+        - if alert
+          %p.alert= alert
+
+    - if auth_page? # because auth form will be in centre of page
+      =yield
+    - else
+      .row
+        .span12
+          =yield
