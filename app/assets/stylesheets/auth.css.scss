@@ -20,6 +20,17 @@
   }
 
   input[type="submit"] {
-    width: 98%;
+  }
+
+  input[type='checkbox'] {
+    margin-top: -4px;
+  }
+  
+  label {
+    display: inline;
+  }
+
+  .field {
+    width: 224px;
   }
 }

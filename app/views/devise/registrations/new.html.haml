@@ -2,11 +2,11 @@
   = devise_error_messages!
   .auth_panel
     %h2 Sign up
-    %div= f.email_field :email, placeholder: 'email'
-    %div= f.text_field :name, placeholder: 'nickname'
-    %div= f.password_field :password, placeholder: 'password'
-    %div= f.password_field :password_confirmation, placeholder: 'password'
-    %div= f.text_field :avatar, placeholder: 'url to avatar image'
+    .field= f.email_field :email, placeholder: 'email'
+    .field= f.text_field :name, placeholder: 'nickname'
+    .field= f.password_field :password, placeholder: 'password'
+    .field= f.password_field :password_confirmation, placeholder: 'password'
+    .field= f.text_field :avatar, placeholder: 'url to avatar image'
 
-    %div= f.submit "Sign up", class: 'btn btn-large btn-block btn-primary'
+    = f.submit "Sign up", class: 'btn btn-large btn-primary field'
     = render "devise/shared/links"
