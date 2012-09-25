@@ -1,0 +1,36 @@
+@import 'mixins';
+
+.auth_panel {
+  margin: 0 auto;
+  width: 230px;
+  overflow: hidden;
+  @include rounded(4px);
+  -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4);
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4);
+  border-left: 0px solid #DBDBDB;
+  border-right: 0px solid #DBDBDB;
+  background: white;
+  position: relative;
+  top: 0px;
+  padding: 20px;
+
+  h1,h2 {
+    text-align: center;
+  }
+
+  input[type="submit"] {
+  }
+
+  input[type='checkbox'] {
+    margin-top: -4px;
+  }
+  
+  label {
+    display: inline;
+  }
+
+  .field {
+    width: 224px;
+  }
+}
