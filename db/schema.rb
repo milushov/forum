@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120926125943) do
+ActiveRecord::Schema.define(:version => 20120926141641) do
 
   create_table "boards", :force => true do |t|
     t.string   "name"
@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(:version => 20120926125943) do
   end
 
   create_table "posts", :force => true do |t|
-    t.string   "text"
+    t.text     "text"
     t.string   "reply_to"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
