@@ -9,8 +9,10 @@
   - @topic.posts.each do |post|
     .post
       .user_info.fl_l
-        = link_to post.user.name,
-          user_url(post.user)
+        .name
+          %i.icon-user
+          = link_to post.user.name,
+            user_url(post.user)
         .avatar
           = link_to user_url(post.user) do
             = image_tag avatar(post.user)

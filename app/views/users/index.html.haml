@@ -11,17 +11,20 @@
               = image_tag avatar(user), class: 'user_avatar'
 
           .info.fl_l.clear
+            %i.icon-user
             %b Name:
             = link_to user_path(user) do
               = user.name
 
             %br/
 
+            %i.icon-plus
             %b Joined:
             = (Time.now.to_i - user.created_at.to_i) / 1.day
             days ago
 
             %br/
-
+            
+            %i.icon-comment
             %b Posts count:
             = user.posts.count

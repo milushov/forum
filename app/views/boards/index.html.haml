@@ -22,7 +22,13 @@
       .topics
         - board.topics.limit(3).each do |topic|
           .topic
-            .author.fl_l roma
-            .subject.fl_l= link_to topic.subject, board_topic_url(board, topic)
+            - if topic.posts.first # fix only for development environment
+              - if author = topic.posts.first.user
+                .author.fl_l
+                  %i.icon-user
+                  = link_to author.name, user_url(author)
+            .subject.fl_l
+              %i.icon-th-list
+              = link_to topic.subject, board_topic_url(board, topic)
             .date.fl_l.clear= topic.created_at.strftime('%H:%M %d.%m.%Y')
 
