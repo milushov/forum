@@ -8,4 +8,8 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :avatar, :name
   validates_presence_of :name
+
+  has_many :posts
+
+  default_scope order: 'created_at'
 end
