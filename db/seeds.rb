@@ -36,8 +36,9 @@ Board.delete_all
 
 boards_names = %w{
   ruby
-  javascript
-  coffeescript
+  git
+  coffee
+  vim
   offtop
 }
 
@@ -54,13 +55,13 @@ boards_names.each do |b_name|
   end
 end
 
-text = File.open("#{Rails.root}/db/Steve_Jobs.txt").read.to_s.split('. ')
+$text = File.open("#{Rails.root}/db/Steve_Jobs.txt").read.to_s.split('. ')
 count_of_topics = 3..23
 
 Board.all.each do |board|
   rand(count_of_topics).times do
     new_topic = board.topics.new do |topic|
-      topic.subject = text[rand(0...text.size)][0..100]
+      topic.subject = $text[rand(0...$text.size)][0..100]
     end
 
     if new_topic.save!
@@ -72,5 +73,36 @@ Board.all.each do |board|
   end
 end
 
-text_for_post = ''
-rand(1..10).times { text_for_post += text[rand(0...text.size)]+'.' }
+def post_text count_sentence = 10
+  text_for_post = ''
+
+  rand(1..count_sentence).times do
+    text_for_post += $text[rand(0...$text.size)]+'.'
+  end
+
+  text_for_post
+end
+
+users = User.limit 10
+count_of_posts = 3..23
+only_for_first_board = true
+
+Board.limit( only_for_first_board ? 1 : 10 ).each do |board|
+  board.topics.each do |topic|
+    rand(count_of_posts).times do
+      user = users[rand(0...users.size)]
+
+      new_post = topic.posts.new do |post|
+        post.text = post_text 23
+        post.user = user
+      end
+
+      if new_post.save!
+        puts "#{new_post.text[0..15]} post created!"
+      else
+        puts 'post not created :-('
+        puts new_post.errors
+      end
+    end
+  end
+end
