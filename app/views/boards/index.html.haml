@@ -30,5 +30,8 @@
             .subject.fl_l
               %i.icon-th-list
               = link_to topic.subject, board_topic_url(board, topic)
-            .date.fl_l.clear= topic.created_at.strftime('%H:%M %d.%m.%Y')
+            .date.fl_l.clear
+              %i.icon-time
+              = topic.created_at.strftime('%H:%M %d.%m.%Y')
+
 
