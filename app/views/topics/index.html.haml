@@ -1,21 +1,28 @@
-%h1 Listing topics
+.header.clear
+  %h1.fl_l All posts
+  = link_to 'New post',
+    new_board_topic_post_url(@board, @topic),
+    class: 'btn btn-primary btn-large fl_r'
 
-%table
-  %tr
-    %th Subject
-    %th Text
-    %th
-    %th
-    %th
+.page
+  - @boards.each do |board|
+    .board
+      .info
+        .name.fl_l= link_to board.name, board
+        .counts.fl_l= "contain #{board.topics.count} topics"
+        .controlls.fl_r.clear
+          = link_to 'Edit',
+            edit_board_path(board),
+            class: 'btn btn-warning btn-mini'
+          = link_to 'Destroy',
+            board,
+            method: :delete,
+            data: { confirm: 'Are you sure?' },
+            class: 'btn btn-danger btn-mini'
+      .topics
+        - board.topics.limit(3).each do |topic|
+          .topic
+            .author.fl_l roma
+            .subject.fl_l= link_to topic.subject, board_topic_url(board, topic)
+            .date.fl_l.clear= topic.created_at.strftime('%H:%M %d.%m.%Y')
 
-  - @topics.each do |topic|
-    %tr
-      %td= topic.subject
-      %td= topic.text
-      %td= link_to 'Show', topic
-      %td= link_to 'Edit', edit_topic_path(topic)
-      %td= link_to 'Destroy', topic, method: :delete, data: { confirm: 'Are you sure?' }
-
-%br
-
-= link_to 'New Topic', new_topic_path
