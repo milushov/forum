@@ -20,3 +20,8 @@
             %b Joined:
             = (Time.now.to_i - user.created_at.to_i) / 1.day
             days ago
+
+            %br/
+
+            %b Posts count:
+            = user.posts.count
