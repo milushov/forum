@@ -1,12 +1,27 @@
-%p#notice= notice
+.header.clear
+  %h3.fl_l= @topic.subject
+  -# TODO make scroll to form new post
+  = link_to 'New post',
+    new_board_topic_post_url(@board, @topic),
+    class: 'btn btn-primary btn-large fl_r'
 
-%p
-  %b Subject:
-  = @topic.subject
-%p
-  %b Text:
-  = @topic.text
-
-= link_to 'Edit', edit_topic_path(@topic)
-\|
-= link_to 'Back', topics_path
+.page
+  - @topic.posts.each do |post|
+    .post
+      .user_info.fl_l
+        = link_to post.user.name,
+          user_url(post.user)
+        .avatar
+          = link_to user_url(post.user) do
+            = image_tag avatar(post.user)
+      .post_inner.clear.fl_r
+        .post_text= post.text
+        .controlls.fl_r
+          = link_to 'Edit',
+            edit_board_topic_post_url(@board, @topic, post),
+            class: 'btn btn-warning btn-mini'
+          = link_to 'Destroy',
+            board_topic_post_path(@board, @topic, post),
+            method: :delete,
+            data: { confirm: 'Are you sure?' },
+            class: 'btn btn-danger btn-mini'

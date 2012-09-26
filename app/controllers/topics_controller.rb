@@ -1,48 +1,40 @@
 class TopicsController < ApplicationController
   before_filter :authenticate_user!, except: [:index, :show]
+  before_filter :load_parents
 
-  # GET /topics
-  # GET /topics.json
+  def load_parents
+    @board = Board.find(params[:board_id])
+    @topic = @board.topics.find(params[:id]) || Topic.new
+  end
+
   def index
     @topics = Topic.all
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
       format.json { render json: @topics }
     end
   end
 
-  # GET /topics/1
-  # GET /topics/1.json
   def show
-    @topic = Topic.find(params[:id])
-
     respond_to do |format|
-      format.html # show.html.erb
+      format.html
       format.json { render json: @topic }
     end
   end
 
-  # GET /topics/new
-  # GET /topics/new.json
   def new
-    @topic = Topic.new
-
     respond_to do |format|
-      format.html # new.html.erb
+      format.html
       format.json { render json: @topic }
     end
   end
 
-  # GET /topics/1/edit
   def edit
-    @topic = Topic.find(params[:id])
   end
 
-  # POST /topics
-  # POST /topics.json
   def create
-    @topic = Topic.new(params[:topic])
+    @topic = @board.topics.new(params[:topic])
 
     respond_to do |format|
       if @topic.save
@@ -55,11 +47,7 @@ class TopicsController < ApplicationController
     end
   end
 
-  # PUT /topics/1
-  # PUT /topics/1.json
   def update
-    @topic = Topic.find(params[:id])
-
     respond_to do |format|
       if @topic.update_attributes(params[:topic])
         format.html { redirect_to @topic, notice: 'Topic was successfully updated.' }
@@ -71,10 +59,7 @@ class TopicsController < ApplicationController
     end
   end
 
-  # DELETE /topics/1
-  # DELETE /topics/1.json
   def destroy
-    @topic = Topic.find(params[:id])
     @topic.destroy
 
     respond_to do |format|
