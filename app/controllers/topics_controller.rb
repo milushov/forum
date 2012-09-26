@@ -4,16 +4,15 @@ class TopicsController < ApplicationController
 
   def load_parents
     @board = Board.find(params[:board_id])
-    @topic = @board.topics.find(params[:id]) || Topic.new
+    if params[:id]
+      @topic = @board.topics.find(params[:id]) || Topic.new
+    else
+      @topic = Topic.new
+    end
   end
 
   def index
-    @topics = Topic.all
-
-    respond_to do |format|
-      format.html
-      format.json { render json: @topics }
-    end
+    redirect_to board_url(@board)
   end
 
   def show
