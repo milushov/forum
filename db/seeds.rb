@@ -10,7 +10,7 @@ iam = User.create! do |user|
   user.password = pass
   user.password_confirmation = pass
   user.name = cur_user_name = 'roma'
-  user.avatar = 'http://cs411617.userapi.com/u788157/a_976d41fa.jpg'
+  user.avatar = 'http://cs411618.userapi.com/u788157/a_976d41fa.jpg'
 end
 
 iam.roles.create!({name: 'admin'})
