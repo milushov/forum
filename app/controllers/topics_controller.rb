@@ -16,54 +16,39 @@ class TopicsController < ApplicationController
   end
 
   def show
-    respond_to do |format|
-      format.html
-      format.json { render json: @topic }
-    end
   end
 
   def new
-    respond_to do |format|
-      format.html
-      format.json { render json: @topic }
-    end
   end
 
   def edit
   end
 
   def create
+    post_text = params[:topic].delete :text
     @topic = @board.topics.new(params[:topic])
+    @post = @topic.posts.new do |post|
+      post.text = post_text
+      post.user = current_user
+    end
 
-    respond_to do |format|
-      if @topic.save
-        format.html { redirect_to @topic, notice: 'Topic was successfully created.' }
-        format.json { render json: @topic, status: :created, location: @topic }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @topic.errors, status: :unprocessable_entity }
-      end
+    if @topic.save and @post.save
+      redirect_to [@board, @topic], notice: 'Topic was successfully created.'
+    else
+      render action: 'new'
     end
   end
 
   def update
-    respond_to do |format|
-      if @topic.update_attributes(params[:topic])
-        format.html { redirect_to @topic, notice: 'Topic was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @topic.errors, status: :unprocessable_entity }
-      end
+    if @topic.update_attributes(params[:topic])
+      redirect_to @topic, notice: 'Topic was successfully updated.'
+    else
+      render action: 'edit'
     end
   end
 
   def destroy
     @topic.destroy
-
-    respond_to do |format|
-      format.html { redirect_to topics_url }
-      format.json { head :no_content }
-    end
+    redirect_to topics_url
   end
 end
