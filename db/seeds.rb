@@ -1,4 +1,4 @@
-require 'pry'
+#require 'pry'
 User.delete_all
 
 count_of_users = 10
