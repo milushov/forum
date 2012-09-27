@@ -27,9 +27,10 @@ class PostsController < ApplicationController
 
   def create
     @post = @topic.posts.new(params[:post])
+    @post.user = current_user
 
     if @post.save
-      redirect_to @post, notice: 'Post was successfully created.'
+      redirect_to board_topic_posts_url @board, @topic, @post, notice: 'Post was successfully created.'
     else
       render action: 'new'
     end
