@@ -25,8 +25,10 @@
             %li.divider-vertical
             %li
               .btn-group
-                %a.btn.btn-primary{href: '/'}
-                  =current_user.name
+                %a.btn.btn-primary{href: user_url(current_user)}
+                  - if current_user.admin?
+                    %span.label.label-important admin
+                  = current_user.name
                 %a.btn.btn-primary.dropdown-toggle{data: {toggle: 'dropdown'}}
                   %span.caret
 

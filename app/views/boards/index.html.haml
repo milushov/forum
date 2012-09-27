@@ -1,8 +1,9 @@
 .header.clear
   %h1.fl_l All boards
-  = link_to 'New Board',
-    new_board_path,
-    class: 'btn btn-primary btn-large fl_r'
+  - if can? :create, Board
+    = link_to 'New Board',
+      new_board_path,
+      class: 'btn btn-primary btn-large fl_r'
 
 .page
   - @boards.each do |board|
@@ -11,14 +12,16 @@
         .name.fl_l= link_to board.name, board
         .counts.fl_l= "contain #{board.topics.count} topics"
         .controlls.fl_r.clear
-          = link_to 'Edit',
-            edit_board_path(board),
-            class: 'btn btn-warning btn-mini'
-          = link_to 'Destroy',
-            board,
-            method: :delete,
-            data: { confirm: 'Are you sure?' },
-            class: 'btn btn-danger btn-mini'
+          - if can? :edit, Board
+            = link_to 'Edit',
+              edit_board_path(board),
+              class: 'btn btn-warning btn-mini'
+          - if can? :delete, Board
+            = link_to 'Destroy',
+              board,
+              method: :delete,
+              data: { confirm: 'Are you sure?' },
+              class: 'btn btn-danger btn-mini'
       .topics
         - board.topics.limit(3).each do |topic|
           .topic

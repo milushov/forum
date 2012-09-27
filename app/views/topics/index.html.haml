@@ -1,8 +1,9 @@
 .header.clear
   %h1.fl_l All topics
-  = link_to 'New topic',
-    new_board_topic_url(@board),
-    class: 'btn btn-primary btn-large fl_r'
+  - if can? :create, Topic
+    = link_to 'New topic',
+      new_board_topic_url(@board),
+      class: 'btn btn-primary btn-large fl_r'
 
 .page
   .topics
@@ -20,13 +21,15 @@
           %i.icon-time
           = topic.created_at.strftime('%H:%M %d.%m.%Y')
         .controlls.fl_r.clear
-          = link_to 'Edit',
-            edit_board_topic_url(@board, topic),
-            class: 'btn btn-warning btn-mini'
-          = link_to 'Destroy',
-            board_topic_url(@board, topic),
-            method: :delete,
-            data: { confirm: 'Are you sure?' },
-            class: 'btn btn-danger btn-mini'
+          - if can? :edit, Topic
+            = link_to 'Edit',
+              edit_board_topic_url(@board, topic),
+              class: 'btn btn-warning btn-mini'
+          - if can? :destroy, Topic
+            = link_to 'Destroy',
+              board_topic_url(@board, topic),
+              method: :delete,
+              data: { confirm: 'Are you sure?' },
+              class: 'btn btn-danger btn-mini'
 
   = paginate @topics

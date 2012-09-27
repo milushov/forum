@@ -10,6 +10,15 @@ class User < ActiveRecord::Base
   validates_presence_of :name
 
   has_many :posts
+  has_and_belongs_to_many :roles
 
   default_scope order: 'created_at'
+
+  def role?(role)
+    return !!self.roles.find_by_name(role.to_s)
+  end
+
+  def admin?
+    role? :admin
+  end
 end

@@ -6,7 +6,9 @@ Forum::Application.routes.draw do
     end
   end
 
-  devise_for :users, path_names: {sign_in: 'login', sign_out: 'logout'}
+  devise_for :users,
+    path_names: {sign_in: 'login', sign_out: 'logout'},
+    controllers: { registrations: 'users/registrations' }
 
   resources :users, only: [:index, :show]
 
