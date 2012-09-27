@@ -1,6 +1,7 @@
 class TopicsController < ApplicationController
   before_filter :authenticate_user!, except: [:index, :show]
   before_filter :load_parents
+  load_and_authorize_resource
 
   def load_parents
     @board = Board.find(params[:board_id])
