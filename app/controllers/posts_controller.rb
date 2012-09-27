@@ -13,7 +13,7 @@ class PostsController < ApplicationController
   end
 
   def index
-    @posts = @topic.posts
+    @posts = @topic.posts.page(params[:page]).per(5)
   end
 
   def show

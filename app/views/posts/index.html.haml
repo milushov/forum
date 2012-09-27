@@ -19,6 +19,7 @@
       .post_inner.clear.fl_r
         .post_text= post.text
         .controlls.fl_r
+          = post.created_at.strftime('%H:%M %d.%m.%Y')
           = link_to 'Edit',
             edit_board_topic_post_url(@board, @topic, post),
             class: 'btn btn-warning btn-mini'
@@ -27,4 +28,4 @@
             method: :delete,
             data: { confirm: 'Are you sure?' },
             class: 'btn btn-danger btn-mini'
-
+= paginate @posts
