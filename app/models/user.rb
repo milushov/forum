@@ -15,6 +15,10 @@ class User < ActiveRecord::Base
   default_scope order: 'created_at'
 
   def role?(role)
-    return !!self.roles.find_by_name(role.to_s.camelize)
+    return !!self.roles.find_by_name(role.to_s)
+  end
+
+  def admin?
+    role? :admin
   end
 end
