@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   validates_presence_of :name
 
   has_many :posts
+  has_and_belongs_to_many :roles
 
   default_scope order: 'created_at'
 end
