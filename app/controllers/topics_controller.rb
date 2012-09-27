@@ -48,8 +48,7 @@ class TopicsController < ApplicationController
   end
 
   def destroy
-    binding.pry
     @topic.destroy
-    redirect_to topics_url
+    redirect_to board_topics_url @board
   end
 end
