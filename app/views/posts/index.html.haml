@@ -28,4 +28,25 @@
             method: :delete,
             data: { confirm: 'Are you sure?' },
             class: 'btn btn-danger btn-mini'
+
+  - if user_signed_in?
+    .block_new
+      .user_info.fl_l
+        .name
+          %i.icon-user
+          = link_to current_user.name,
+            user_url(current_user)
+        .avatar
+          = link_to user_url(current_user) do
+            = image_tag avatar(current_user)
+      .post.fl_r
+        -#- binding.pry
+        = form_for [:board, :topic, @post] do |f|
+          = f.text_area :text,
+            size: '500x7',
+            placeholder: 'Post text',
+            class: 'post_text'
+          = f.submit 'Create post',
+            class: 'btn btn-primary btn-large'
+
 = paginate @posts

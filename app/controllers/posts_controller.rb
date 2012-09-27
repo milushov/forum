@@ -17,17 +17,9 @@ class PostsController < ApplicationController
   end
 
   def show
-    respond_to do |format|
-      format.html
-      format.json { render json: @post }
-    end
   end
 
   def new
-    respond_to do |format|
-      format.html
-      format.json { render json: @post }
-    end
   end
 
   def edit
@@ -35,36 +27,25 @@ class PostsController < ApplicationController
 
   def create
     @post = @topic.posts.new(params[:post])
+    @post.user = current_user
 
-    respond_to do |format|
-      if @post.save
-        format.html { redirect_to @post, notice: 'Post was successfully created.' }
-        format.json { render json: @post, status: :created, location: @post }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
-      end
+    if @post.save
+      redirect_to board_topic_posts_url @board, @topic, @post, notice: 'Post was successfully created.'
+    else
+      render action: 'new'
     end
   end
 
   def update
-    respond_to do |format|
-      if @post.update_attributes(params[:post])
-        format.html { redirect_to @post, notice: 'Post was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
-      end
+    if @post.update_attributes(params[:post])
+      redirect_to @post, notice: 'Post was successfully updated.'
+    else
+      render action: 'edit'
     end
   end
 
   def destroy
     @post.destroy
-
-    respond_to do |format|
-      format.html { redirect_to posts_url }
-      format.json { head :no_content }
-    end
+    redirect_to board_topic_posts_url(@board, @topic)
   end
 end
