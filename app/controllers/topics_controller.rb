@@ -25,10 +25,15 @@ class TopicsController < ApplicationController
   end
 
   def create
+    post_text = params[:topic].delete :text
     @topic = @board.topics.new(params[:topic])
+    @post = @topic.posts.new do |post|
+      post.text = post_text
+      post.user = current_user
+    end
 
-    if @topic.save
-      redirect_to @topic, notice: 'Topic was successfully created.'
+    if @topic.save and @post.save
+      redirect_to [@board, @topic], notice: 'Topic was successfully created.'
     else
       render action: 'new'
     end
