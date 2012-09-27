@@ -1,8 +1,9 @@
 .header.clear
   %h1.fl_l All boards
-  = link_to 'New Board',
-    new_board_path,
-    class: 'btn btn-primary btn-large fl_r'
+  - if can? :create, @boards
+    = link_to 'New Board',
+      new_board_path,
+      class: 'btn btn-primary btn-large fl_r'
 
 .page
   - @boards.each do |board|
