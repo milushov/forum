@@ -12,7 +12,7 @@ class TopicsController < ApplicationController
   end
 
   def index
-    redirect_to board_url(@board)
+    @topics = @board.topics.page(params[:page]).per(5)
   end
 
   def show
@@ -49,6 +49,6 @@ class TopicsController < ApplicationController
 
   def destroy
     @topic.destroy
-    redirect_to topics_url
+    redirect_to board_topics_url @board
   end
 end
