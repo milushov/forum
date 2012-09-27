@@ -8,6 +8,10 @@ class Ability
       can :manage, :all
     else
       can :read, :all
+      can :create, [Topic, Post]
+      can :destroy, Post do |post|
+        post.user.id == user.id
+      end
     end
   end
 end
