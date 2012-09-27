@@ -16,6 +16,7 @@ class TopicsController < ApplicationController
   end
 
   def show
+    redirect_to board_topic_posts_url(@board, @topic)
   end
 
   def new

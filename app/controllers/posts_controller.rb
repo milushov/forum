@@ -13,7 +13,7 @@ class PostsController < ApplicationController
   end
 
   def index
-    redirect_to board_topic_url(@board, @topic)
+    @posts = @topic.posts
   end
 
   def show
