@@ -1,21 +1,31 @@
-%h1 Listing posts
+.header.clear
+  %h3.fl_l= @topic.subject
+  -# TODO make scroll to form new post
+  = link_to 'New post',
+    new_board_topic_post_url(@board, @topic),
+    class: 'btn btn-primary btn-large fl_r'
 
-%table
-  %tr
-    %th Text
-    %th Reply to
-    %th
-    %th
-    %th
-
+.page
   - @posts.each do |post|
-    %tr
-      %td= post.text
-      %td= post.reply_to
-      %td= link_to 'Show', post
-      %td= link_to 'Edit', edit_post_path(post)
-      %td= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' }
-
-%br
-
-= link_to 'New Post', new_post_path
+    .post
+      .user_info.fl_l
+        .name
+          %i.icon-user
+          = link_to post.user.name,
+            user_url(post.user)
+        .avatar
+          = link_to user_url(post.user) do
+            = image_tag avatar(post.user)
+      .post_inner.clear.fl_r
+        .post_text= post.text
+        .controlls.fl_r
+          = post.created_at.strftime('%H:%M %d.%m.%Y')
+          = link_to 'Edit',
+            edit_board_topic_post_url(@board, @topic, post),
+            class: 'btn btn-warning btn-mini'
+          = link_to 'Destroy',
+            board_topic_post_path(@board, @topic, post),
+            method: :delete,
+            data: { confirm: 'Are you sure?' },
+            class: 'btn btn-danger btn-mini'
+= paginate @posts
