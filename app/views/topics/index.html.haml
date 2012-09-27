@@ -1,28 +1,30 @@
 .header.clear
-  %h1.fl_l All posts
-  = link_to 'New post',
-    new_board_topic_post_url(@board, @topic),
+  %h1.fl_l All topics
+  = link_to 'New topic',
+    new_board_topic_url(@board),
     class: 'btn btn-primary btn-large fl_r'
 
 .page
-  - @boards.each do |board|
-    .board
-      .info
-        .name.fl_l= link_to board.name, board
-        .counts.fl_l= "contain #{board.topics.count} topics"
+  .topics
+    - @topics.each do |topic|
+      .topic
+        .author.fl_l
+          %i.icon-user
+          = link_to topic.posts.first.user.name,
+            user_url(topic.posts.first.user)
+        .subject.fl_l
+          %i.icon-th-list
+          = link_to topic.subject,
+            board_topic_url(@board, topic)
+        .date.fl_l.clear
+          %i.icon-time
+          = topic.created_at.strftime('%H:%M %d.%m.%Y')
         .controlls.fl_r.clear
           = link_to 'Edit',
-            edit_board_path(board),
+            edit_board_topic_url(@board, topic),
             class: 'btn btn-warning btn-mini'
           = link_to 'Destroy',
-            board,
+            board_topic_url(@board, topic),
             method: :delete,
             data: { confirm: 'Are you sure?' },
             class: 'btn btn-danger btn-mini'
-      .topics
-        - board.topics.limit(3).each do |topic|
-          .topic
-            .author.fl_l roma
-            .subject.fl_l= link_to topic.subject, board_topic_url(board, topic)
-            .date.fl_l.clear= topic.created_at.strftime('%H:%M %d.%m.%Y')
-

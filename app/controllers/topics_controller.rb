@@ -12,7 +12,7 @@ class TopicsController < ApplicationController
   end
 
   def index
-    redirect_to board_url(@board)
+    @topics = @board.topics
   end
 
   def show
@@ -48,6 +48,7 @@ class TopicsController < ApplicationController
   end
 
   def destroy
+    binding.pry
     @topic.destroy
     redirect_to topics_url
   end

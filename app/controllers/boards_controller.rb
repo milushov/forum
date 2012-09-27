@@ -7,6 +7,7 @@ class BoardsController < ApplicationController
 
   def show
     @board = Board.find(params[:id])
+    redirect_to board_topics_url(@board)
   end
 
   def new
