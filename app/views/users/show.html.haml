@@ -20,18 +20,19 @@
         %b Posts count:
         = @posts_count
 
-    .user_posts.fl_r
+    .posts.fl_r
       - @posts.each do |post|
         - board = post.topic.board
         - topic = post.topic
         .post
           .board_name
-            = board.name
-          .post_info
-            .subject.fl_l
+            %i.icon-folder-open
+            = link_to board.name, board_url(board)
+          .post_info.clear
+            .topic_subject.fl_l
               %i.icon-th-list
               = link_to topic.subject, board_topic_url(board, topic)
-            .date.fl_l.clear
+            .topic_date.fl_l.clear
               %i.icon-time
               = post.created_at.strftime('%H:%M %d.%m.%Y')
           .post_text
