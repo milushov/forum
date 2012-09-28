@@ -7,7 +7,8 @@ Forum::Application.routes.draw do
   end
 
   devise_for :users,
-    path_names: {sign_in: 'login', sign_out: 'logout'}#,
+    path_names: {sign_in: 'login', sign_out: 'logout'},
+    controllers: {omniauth_callbacks: 'omniauth_callbacks'}
     #controllers: { registrations: 'users/registrations' }
 
   resources :users, only: [:index, :show]
