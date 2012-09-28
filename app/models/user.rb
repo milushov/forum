@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
       user.provider = auth.provider
       user.uid = auth.uid
       user.name = auth.info.nickname
-      user.avatar = auth.info.image
+      user.avatar = auth.info.image.sub('_normal', '')
     end
   end
 
