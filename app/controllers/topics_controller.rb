@@ -42,8 +42,12 @@ class TopicsController < ApplicationController
   end
 
   def update
-    if @topic.update_attributes(params[:topic])
-      redirect_to @topic, notice: 'Topic was successfully updated.'
+    post_text = params[:topic].delete :text
+    @post = @topic.posts.first
+    @post.text = post_text
+
+    if @topic.update_attributes(params[:topic]) and @post.save
+      redirect_to [@board, @topic], notice: 'Topic was successfully updated.'
     else
       render action: 'edit'
     end
