@@ -63,7 +63,7 @@ count_of_topics = 3..23
 Board.all.each do |board|
   rand(count_of_topics).times do
     new_topic = board.topics.new do |topic|
-      topic.subject = $text[rand(0...$text.size)][0..100]
+      topic.subject = $text[rand(0...$text.size)][0...50]
     end
 
     if new_topic.save!
@@ -86,7 +86,7 @@ def post_text count_sentence = 10
 end
 
 users = User.limit 10
-count_of_posts = 3..23
+count_of_posts = 7..15
 only_for_first_board = true
 
 Board.limit( only_for_first_board ? 1 : 10 ).each do |board|
@@ -95,7 +95,7 @@ Board.limit( only_for_first_board ? 1 : 10 ).each do |board|
       user = users[rand(0...users.size)]
 
       new_post = topic.posts.new do |post|
-        post.text = post_text 23
+        post.text = post_text(15)[0...1000]
         post.user = user
       end
 
