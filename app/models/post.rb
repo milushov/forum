@@ -5,4 +5,7 @@ class Post < ActiveRecord::Base
   belongs_to :user
 
   default_scope order: 'created_at'
+
+  validates_presence_of :text
+  validates :text, length: {in: 5..1000}
 end

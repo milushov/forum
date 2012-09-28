@@ -31,17 +31,21 @@ class PostsController < ApplicationController
     @post.user = current_user
 
     if @post.save
-      redirect_to board_topic_posts_url @board, @topic, @post, notice: 'Post was successfully created.'
+      flash[:notice] = 'Post was successfully created.'
+      redirect_to board_topic_posts_url @board, @topic
     else
-      render action: 'new'
+      flash[:error] = 'Post was not created.'
+      redirect_to board_topic_posts_url @board, @topic
     end
   end
 
   def update
     if @post.update_attributes(params[:post])
-      redirect_to @post, notice: 'Post was successfully updated.'
+      flash[:notice] = 'Post was successfully updated.'
+      redirect_to board_topic_posts_url @board, @topic
     else
-      render action: 'edit'
+      flash[:error] = 'Post was not updated.'
+      redirect_to board_topic_posts_url @board, @topic
     end
   end
 
