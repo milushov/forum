@@ -87,7 +87,7 @@ end
 
 users = User.limit 10
 count_of_posts = 7..15
-only_for_first_board = true
+only_for_first_board = false
 
 Board.limit( only_for_first_board ? 1 : 10 ).each do |board|
   board.topics.each do |topic|
