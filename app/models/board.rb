@@ -4,4 +4,6 @@ class Board < ActiveRecord::Base
   has_many :topics, dependent: :destroy
 
   default_scope order: 'created_at'
+
+  validates :name, length: {in: 2..23}
 end
