@@ -28,6 +28,7 @@ class User < ActiveRecord::Base
       user.uid = auth.uid
       user.name = auth.info.nickname
       user.avatar = auth.info.image.sub('_normal', '')
+      user.email = "#{user.name}@forum.milushov.ru"
     end
   end
 
