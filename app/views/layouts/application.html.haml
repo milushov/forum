@@ -21,6 +21,11 @@
               %a.nav{href: '/users'} All users
 
         %ul.nav.pull-right
+          - unless user_signed_in?
+            %li.divider-vertical
+              %li
+                = link_to '', user_omniauth_authorize_path(:twitter),
+                  class: 'twitter_sign_in_button'
           - if user_signed_in?
             %li.divider-vertical
             %li
