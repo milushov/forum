@@ -52,10 +52,10 @@
   .container#app
     .row
       .span12
-        - if notice
-          %p.notice= notice
-        - if alert
-          %p.alert= alert
+        - if flash[:notice]
+          .alert.alert-info= flash[:notice]
+        - if flash[:error]
+          .alert.alert-error= flash[:error]
     .row
       .span12
         =yield
