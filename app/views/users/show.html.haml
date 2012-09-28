@@ -1,0 +1,40 @@
+.page
+  .user_profile
+    .user_info.fl_l
+      .name
+        %i.icon-user
+        = link_to @user.name,
+          user_url(@user)
+      .avatar
+        = link_to user_url(@user) do
+          = image_tag avatar(@user)
+      .info
+        %i.icon-plus
+        %b Joined:
+        = (Time.now.to_i - @user.created_at.to_i) / 1.day
+        days ago
+
+        %br/
+        
+        %i.icon-comment
+        %b Posts count:
+        = @posts_count
+
+    .posts.fl_r
+      - @posts.each do |post|
+        - board = post.topic.board
+        - topic = post.topic
+        .post
+          .board_name
+            %i.icon-folder-open
+            = link_to board.name, board_url(board)
+          .post_info
+            .topic_subject.fl_l
+              %i.icon-th-list
+              = link_to topic.subject, board_topic_url(board, topic)
+            .topic_date.fl_l.clear
+              %i.icon-time
+              = post.created_at.strftime('%H:%M %d.%m.%Y')
+          .post_text
+            = post.text
+

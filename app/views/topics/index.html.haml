@@ -1,0 +1,35 @@
+.header.clear
+  %h1.fl_l All topics
+  - if can? :create, Topic
+    = link_to 'New topic',
+      new_board_topic_url(@board),
+      class: 'btn btn-primary btn-large fl_r'
+
+.page
+  .topics
+    - @topics.each do |topic|
+      .topic
+        .author.fl_l
+          %i.icon-user
+          = link_to topic.posts.first.user.name,
+            user_url(topic.posts.first.user)
+        .subject.fl_l
+          %i.icon-th-list
+          = link_to topic.subject,
+            board_topic_url(@board, topic)
+        .date.fl_l.clear
+          %i.icon-time
+          = topic.created_at.strftime('%H:%M %d.%m.%Y')
+        .controlls.fl_r.clear
+          - if can? :edit, Topic
+            = link_to 'Edit',
+              edit_board_topic_url(@board, topic),
+              class: 'btn btn-warning btn-mini'
+          - if can? :destroy, Topic
+            = link_to 'Destroy',
+              board_topic_url(@board, topic),
+              method: :delete,
+              data: { confirm: 'Are you sure?' },
+              class: 'btn btn-danger btn-mini'
+
+  = paginate @topics

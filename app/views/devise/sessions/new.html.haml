@@ -1,0 +1,9 @@
+= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+  = devise_error_messages!
+  .auth_panel
+    %h2 Login
+    .field= f.text_field :name, placeholder: 'nickname'
+    .field= f.password_field :password, placeholder: 'password'
+
+    = f.submit 'Login', class: 'btn btn-large btn-primary field'
+    = render "devise/shared/links"

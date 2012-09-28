@@ -1,0 +1,14 @@
+= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
+  = devise_error_messages!
+  .auth_panel
+    %h2 Sign up
+    - if f.object.email_required?
+      .field= f.email_field :email, placeholder: 'email'
+    .field= f.text_field :name, placeholder: 'nickname'
+    - if f.object.password_required?
+      .field= f.password_field :password, placeholder: 'password'
+      .field= f.password_field :password_confirmation, placeholder: 'password'
+    .field= f.text_field :avatar, placeholder: 'url to avatar image'
+
+    = f.submit "Sign up", class: 'btn btn-large btn-primary field'
+    = render "devise/shared/links"

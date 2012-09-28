@@ -1,0 +1,40 @@
+.header.clear
+  %h1.fl_l All boards
+  - if can? :create, Board
+    = link_to 'New Board',
+      new_board_path,
+      class: 'btn btn-primary btn-large fl_r'
+
+.page
+  - @boards.each do |board|
+    .board
+      .info
+        .name.fl_l= link_to board.name, board
+        .counts.fl_l= "contain #{board.topics.count} topics"
+        .controlls.fl_r.clear
+          - if can? :edit, Board
+            = link_to 'Edit',
+              edit_board_path(board),
+              class: 'btn btn-warning btn-mini'
+          - if can? :delete, Board
+            = link_to 'Destroy',
+              board,
+              method: :delete,
+              data: { confirm: 'Are you sure?' },
+              class: 'btn btn-danger btn-mini'
+      .topics
+        - board.topics.limit(3).each do |topic|
+          .topic
+            - if topic.posts.first # fix only for development environment
+              - if author = topic.posts.first.user
+                .author.fl_l
+                  %i.icon-user
+                  = link_to author.name, user_url(author)
+            .subject.fl_l
+              %i.icon-th-list
+              = link_to topic.subject, board_topic_url(board, topic)
+            .date.fl_l.clear
+              %i.icon-time
+              = topic.created_at.strftime('%H:%M %d.%m.%Y')
+
+

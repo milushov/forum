@@ -1,0 +1,37 @@
+- if @topic.errors.any?
+  .alert.alert-error.alert-block
+    %button.close{'data-dismiss' => 'alert', type: 'button'} ×
+    %h4= "#{pluralize(@topic.errors.count, "error")} prohibited this board from being saved:"
+    %ul
+      - @topic.errors.full_messages.each do |msg|
+        %li= msg
+
+
+.header.clear
+  %h1.fl_l= @board.name
+
+.page
+  .block_new
+    .user_info.fl_l
+      .name
+        %i.icon-user
+        = link_to current_user.name,
+          user_url(current_user)
+      .avatar
+        = link_to user_url(current_user) do
+          = image_tag avatar(current_user)
+    .post.fl_r
+      -#- binding.pry
+      = form_for [:board, @topic] do |f|
+        = f.text_field :subject,
+          placeholder: 'Subject of topic',
+          class: 'topic_subject'
+        = f.text_area :text,
+          size: '500x7',
+          placeholder: 'First post text',
+          class: 'post_text'
+        = f.submit 'Create topic',
+          class: 'btn btn-primary btn-large'
+
+
+-#= link_to 'Back', board_topics_path(@board)
