@@ -53,9 +53,13 @@
     .row
       .span12
         - if flash[:notice]
-          .alert.alert-info= flash[:notice]
+          .alert.alert-info
+            %button.close{'data-dismiss' => 'alert', type: 'button'} ×
+            = flash[:notice]
         - if flash[:error]
-          .alert.alert-error= flash[:error]
+          .alert.alert-error
+            %button.close{'data-dismiss' => 'alert', type: 'button'} ×
+            = flash[:error]
     .row
       .span12
         =yield
