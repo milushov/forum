@@ -6,6 +6,10 @@ class UsersController < ApplicationController
   end
 
   def show
+    # this don't work and i don't know why
+    if params[:id] == 'logout'
+      redirect_to root_url
+    end
     @user = User.find(params[:id])
     @posts = @user.posts.limit(10)
     @posts_count = @posts.count
