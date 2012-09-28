@@ -1,12 +1,3 @@
-- if @new_post
-  - if @new_post.errors.any?
-    .alert.alert-error.alert-block
-      %button.close{'data-dismiss' => 'alert', type: 'button'} ×
-      %h4= "#{pluralize(@new_post.errors.count, "error")} prohibited this topic from being saved:"
-      %ul
-        - @new_post.errors.full_messages.each do |msg|
-          %li= msg
-
 .header.clear
   %h3.fl_l= @topic.subject
   -# TODO make scroll to form new post

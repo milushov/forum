@@ -29,9 +29,8 @@ class PostsController < ApplicationController
   def create
     @post = @topic.posts.new(params[:post])
     @post.user = current_user
-    @new_post = @post
 
-    if @new_post.save
+    if @post.save
       flash[:notice] = 'Post was successfully created.'
       redirect_to board_topic_posts_url @board, @topic
     else
@@ -41,8 +40,7 @@ class PostsController < ApplicationController
   end
 
   def update
-    @new_post = @post
-    if @new_post.save
+    if @post.update_attributes(params[:post])
       flash[:notice] = 'Post was successfully updated.'
       redirect_to board_topic_posts_url @board, @topic
     else
