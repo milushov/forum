@@ -24,7 +24,7 @@
       - @posts.each do |post|
         - board = post.topic.board
         - topic = post.topic
-        .post
+        .u_post
           .board_name
             %i.icon-folder-open
             = link_to board.name, board_url(board)
