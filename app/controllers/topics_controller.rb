@@ -17,7 +17,7 @@ class TopicsController < ApplicationController
   end
 
   def show
-    redirect_to board_topic_posts_url(@board, @topic)
+    redirect_to board_topic_posts_url(@board, @topic), notice: flash[:notice]
   end
 
   def new
@@ -34,8 +34,15 @@ class TopicsController < ApplicationController
       post.user = current_user
     end
 
-    if @topic.save and @post.save
-      redirect_to [@board, @topic], notice: 'Topic was successfully created.'
+    text_ok = true
+    unless (5..100).include?(post_text.length)
+      text_ok = false
+      @topic.errors.add('', 'text should be have minimum is 5 characters and is 1000 as maximum')
+    end
+
+    if @topic.save and @post.save and text_ok
+      flash[:notice] = 'Topic was successfully created.'
+      redirect_to [@board, @topic]
     else
       render action: 'new'
     end
