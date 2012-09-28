@@ -2,7 +2,8 @@
   = devise_error_messages!
   .auth_panel
     %h2 Sign up
-    .field= f.email_field :email, placeholder: 'email'
+    - if f.object.email_required?
+      .field= f.email_field :email, placeholder: 'email'
     .field= f.text_field :name, placeholder: 'nickname'
     - if f.object.password_required?
       .field= f.password_field :password, placeholder: 'password'
