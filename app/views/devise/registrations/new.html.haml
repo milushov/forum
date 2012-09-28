@@ -4,8 +4,9 @@
     %h2 Sign up
     .field= f.email_field :email, placeholder: 'email'
     .field= f.text_field :name, placeholder: 'nickname'
-    .field= f.password_field :password, placeholder: 'password'
-    .field= f.password_field :password_confirmation, placeholder: 'password'
+    - if f.object.password_required?
+      .field= f.password_field :password, placeholder: 'password'
+      .field= f.password_field :password_confirmation, placeholder: 'password'
     .field= f.text_field :avatar, placeholder: 'url to avatar image'
 
     = f.submit "Sign up", class: 'btn btn-large btn-primary field'
