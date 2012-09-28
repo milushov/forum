@@ -24,11 +24,11 @@
       - @posts.each do |post|
         - board = post.topic.board
         - topic = post.topic
-        .u_post
+        .post
           .board_name
             %i.icon-folder-open
             = link_to board.name, board_url(board)
-          .post_info.clear
+          .post_info
             .topic_subject.fl_l
               %i.icon-th-list
               = link_to topic.subject, board_topic_url(board, topic)
@@ -37,3 +37,4 @@
               = post.created_at.strftime('%H:%M %d.%m.%Y')
           .post_text
             = post.text
+

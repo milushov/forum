@@ -44,6 +44,7 @@
 
 .user_profile {
   overflow: hidden;
+
   .user_info {
     overflow: hidden;
     width: 20%;
@@ -63,29 +64,31 @@
         }
       }
     }
+  }
 
   .posts {
     width: 80%;
     overflow: hidden;
-    .u_post {
-      .board_name {
-      }
+
+    .post {
       .post_info {
         float: none;
         overflow: hidden;
+
         .topic_subject {
           overflow: hidden;
         }
+
         .topic_date {
           overflow: hidden;
           margin-left: 10px;
         }
       }
+
       .post_text {
         overflow: hidden;
         padding-top: 15px;
       }
     }
   }
-}
 }
